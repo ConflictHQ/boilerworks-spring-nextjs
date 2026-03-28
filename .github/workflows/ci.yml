@@ -84,6 +84,8 @@ jobs:
           distribution: "temurin"
           java-version: "24"
           cache: "gradle"
+      - name: Spotless Check
+        run: ./gradlew spotlessCheck --no-daemon
       - name: Build
         run: ./gradlew build -x test --no-daemon
       - name: Test

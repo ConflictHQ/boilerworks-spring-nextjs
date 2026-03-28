@@ -1,0 +1,24 @@
+# Backend
+backend/.gradle/
+backend/build/
+backend/*.class
+
+# Frontend
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+frontend/.env.local
+
+# Docker
+docker/runtime/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

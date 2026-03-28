@@ -1,16 +1,15 @@
 package com.boilerworks.api.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.type.SqlTypes;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "workflow_instances")
@@ -20,26 +19,29 @@ import java.util.Map;
 @NoArgsConstructor
 public class WorkflowInstance extends AuditableEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workflow_definition_id", nullable = false)
-    private WorkflowDefinition workflowDefinition;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "workflow_definition_id", nullable = false)
+  private WorkflowDefinition workflowDefinition;
 
-    @Column(name = "current_state", nullable = false)
-    private String currentState;
+  @Column(name = "current_state", nullable = false)
+  private String currentState;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "context_json", columnDefinition = "jsonb")
-    private Map<String, Object> contextJson;
+  @JdbcTypeCode(SqlTypes.JSON)
+  @Column(name = "context_json", columnDefinition = "TEXT")
+  private Map<String, Object> contextJson;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private InstanceStatus status = InstanceStatus.ACTIVE;
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private InstanceStatus status = InstanceStatus.ACTIVE;
 
-    @OneToMany(mappedBy = "workflowInstance", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("createdAt ASC")
-    private List<WorkflowTransitionLog> transitionLogs = new ArrayList<>();
+  @OneToMany(mappedBy = "workflowInstance", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OrderBy("triggeredAt ASC")
+  private List<WorkflowTransitionLog> transitionLogs = new ArrayList<>();
 
-    public enum InstanceStatus {
-        ACTIVE, COMPLETED, CANCELLED, ERROR
-    }
+  public enum InstanceStatus {
+    ACTIVE,
+    COMPLETED,
+    CANCELLED,
+    ERROR
+  }
 }

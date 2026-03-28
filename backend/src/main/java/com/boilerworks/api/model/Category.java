@@ -14,15 +14,15 @@ import org.hibernate.annotations.SQLRestriction;
 @NoArgsConstructor
 public class Category extends AuditableEntity {
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false, unique = true)
-    private String slug;
+  @Column(nullable = false, unique = true)
+  private String slug;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+  @Column(columnDefinition = "TEXT")
+  private String description;
 
-    @Column(name = "sort_order")
-    private int sortOrder = 0;
+  @Column(name = "sort_order")
+  private int sortOrder = 0;
 }

@@ -65,6 +65,40 @@ cd frontend && npm install && npm run dev
 | Redis | 6389 |
 | Mailpit (email) | 8025 |
 
+## API Endpoints
+
+| Method | Path | Auth | Permission | Description |
+|--------|------|------|------------|-------------|
+| GET | `/health` | No | — | Health check |
+| POST | `/api/auth/login` | No | — | Login with email/password |
+| GET | `/api/auth/me` | Yes | — | Get current user profile |
+| POST | `/api/auth/logout` | Yes | — | Logout (invalidate session) |
+| GET | `/api/products` | Yes | `products.view` | List all products |
+| GET | `/api/products/{id}` | Yes | `products.view` | Get product by ID |
+| POST | `/api/products` | Yes | `products.create` | Create a product |
+| PUT | `/api/products/{id}` | Yes | `products.edit` | Update a product |
+| DELETE | `/api/products/{id}` | Yes | `products.delete` | Soft-delete a product |
+| GET | `/api/categories` | Yes | `categories.view` | List all categories |
+| GET | `/api/categories/{id}` | Yes | `categories.view` | Get category by ID |
+| POST | `/api/categories` | Yes | `categories.create` | Create a category |
+| PUT | `/api/categories/{id}` | Yes | `categories.edit` | Update a category |
+| DELETE | `/api/categories/{id}` | Yes | `categories.delete` | Soft-delete a category |
+| GET | `/api/forms` | Yes | `forms.view` | List form definitions |
+| GET | `/api/forms/{id}` | Yes | `forms.view` | Get form definition by ID |
+| POST | `/api/forms` | Yes | `forms.create` | Create a form definition |
+| PUT | `/api/forms/{id}` | Yes | `forms.edit` | Update a form definition |
+| DELETE | `/api/forms/{id}` | Yes | `forms.delete` | Soft-delete a form definition |
+| GET | `/api/forms/{id}/submissions` | Yes | `forms.view` | List submissions for a form |
+| POST | `/api/forms/{id}/submissions` | Yes | `forms.submit` | Submit a form |
+| GET | `/api/workflows` | Yes | `workflows.view` | List workflow definitions |
+| GET | `/api/workflows/{id}` | Yes | `workflows.view` | Get workflow definition by ID |
+| POST | `/api/workflows` | Yes | `workflows.create` | Create a workflow definition |
+| PUT | `/api/workflows/{id}` | Yes | `workflows.edit` | Update a workflow definition |
+| DELETE | `/api/workflows/{id}` | Yes | `workflows.delete` | Soft-delete a workflow definition |
+| POST | `/api/workflows/{id}/instances` | Yes | `workflows.execute` | Start a workflow instance |
+| GET | `/api/workflows/{id}/instances` | Yes | `workflows.view` | List instances for a workflow |
+| POST | `/api/workflows/instances/{instanceId}/transition` | Yes | `workflows.execute` | Execute a workflow transition |
+
 ## Testing
 
 ```bash

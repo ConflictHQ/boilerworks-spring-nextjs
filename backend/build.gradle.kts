@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.diffplug.spotless") version "7.0.2"
 }
 
 group = "com.boilerworks"
@@ -49,6 +50,16 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
 }
 
+spotless {
+    java {
+        googleJavaFormat()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
+    jvmArgs("--add-opens", "java.base/java.io=ALL-UNNAMED")
 }

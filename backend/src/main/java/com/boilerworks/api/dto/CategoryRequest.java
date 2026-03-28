@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 public class CategoryRequest {
 
-    @NotBlank(message = "Name is required")
-    private String name;
+  @NotBlank(message = "Name is required")
+  private String name;
 
-    @NotBlank(message = "Slug is required")
-    private String slug;
+  @NotBlank(message = "Slug is required")
+  private String slug;
 
-    private String description;
+  private String description;
 
-    private int sortOrder = 0;
+  private int sortOrder = 0;
 }

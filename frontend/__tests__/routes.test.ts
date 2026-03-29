@@ -6,12 +6,12 @@ describe("Route labels", () => {
     expect(routeLabels["dashboard"]).toBe("Dashboard");
   });
 
-  it("has label for products", () => {
-    expect(routeLabels["products"]).toBe("Products");
+  it("has label for items", () => {
+    expect(routeLabels["items"]).toBe("Items");
   });
 
   it("has labels for all main routes", () => {
-    const required = ["dashboard", "products", "categories", "forms", "workflows", "settings"];
+    const required = ["dashboard", "items", "categories", "forms", "workflows", "settings"];
     for (const route of required) {
       expect(routeLabels[route]).toBeDefined();
     }

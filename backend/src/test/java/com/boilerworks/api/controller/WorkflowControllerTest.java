@@ -35,7 +35,7 @@ class WorkflowControllerTest {
   @Autowired private PermissionRepository permissionRepository;
   @Autowired private WorkflowDefinitionRepository workflowDefinitionRepository;
   @Autowired private WorkflowInstanceRepository workflowInstanceRepository;
-  @Autowired private ProductRepository productRepository;
+  @Autowired private ItemRepository itemRepository;
   @Autowired private CategoryRepository categoryRepository;
   @Autowired private PasswordEncoder passwordEncoder;
 
@@ -46,7 +46,7 @@ class WorkflowControllerTest {
   void setUp() throws Exception {
     workflowInstanceRepository.deleteAll();
     workflowDefinitionRepository.deleteAll();
-    productRepository.deleteAll();
+    itemRepository.deleteAll();
     categoryRepository.deleteAll();
     userRepository.deleteAll();
     groupRepository.deleteAll();

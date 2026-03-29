@@ -47,7 +47,7 @@ cd frontend && npm install && npm run dev
 
 - Session-based authentication with Spring Security (httpOnly cookies, Redis-backed)
 - Group-based permissions with `@PreAuthorize` on every endpoint
-- Products and Categories CRUD with soft deletes and audit trails
+- Items and Categories CRUD with soft deletes and audit trails
 - Forms engine (JSON Schema-based dynamic form definitions)
 - Workflow engine (state machine with transition logging)
 - Dark admin theme (Boilerworks branding)
@@ -73,11 +73,11 @@ cd frontend && npm install && npm run dev
 | POST | `/api/auth/login` | No | — | Login with email/password |
 | GET | `/api/auth/me` | Yes | — | Get current user profile |
 | POST | `/api/auth/logout` | Yes | — | Logout (invalidate session) |
-| GET | `/api/products` | Yes | `products.view` | List all products |
-| GET | `/api/products/{id}` | Yes | `products.view` | Get product by ID |
-| POST | `/api/products` | Yes | `products.create` | Create a product |
-| PUT | `/api/products/{id}` | Yes | `products.edit` | Update a product |
-| DELETE | `/api/products/{id}` | Yes | `products.delete` | Soft-delete a product |
+| GET | `/api/items` | Yes | `items.view` | List all items |
+| GET | `/api/items/{id}` | Yes | `items.view` | Get item by ID |
+| POST | `/api/items` | Yes | `items.create` | Create a item |
+| PUT | `/api/items/{id}` | Yes | `items.edit` | Update a item |
+| DELETE | `/api/items/{id}` | Yes | `items.delete` | Soft-delete a item |
 | GET | `/api/categories` | Yes | `categories.view` | List all categories |
 | GET | `/api/categories/{id}` | Yes | `categories.view` | Get category by ID |
 | POST | `/api/categories` | Yes | `categories.create` | Create a category |

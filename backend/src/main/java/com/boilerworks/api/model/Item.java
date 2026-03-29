@@ -8,12 +8,12 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
-@Table(name = "products")
+@Table(name = "items")
 @SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Product extends AuditableEntity {
+public class Item extends AuditableEntity {
 
   @Column(nullable = false)
   private String name;

@@ -42,11 +42,11 @@ class AuthControllerTest {
     groupRepository.deleteAll();
     permissionRepository.deleteAll();
 
-    Permission viewProducts = new Permission("products.view", "View Products", "Can view products");
-    permissionRepository.save(viewProducts);
+    Permission viewItems = new Permission("items.view", "View Items", "Can view items");
+    permissionRepository.save(viewItems);
 
     UserGroup admins = new UserGroup("Administrators", "Full access");
-    admins.setPermissions(Set.of(viewProducts));
+    admins.setPermissions(Set.of(viewItems));
     groupRepository.save(admins);
 
     AppUser user = new AppUser();

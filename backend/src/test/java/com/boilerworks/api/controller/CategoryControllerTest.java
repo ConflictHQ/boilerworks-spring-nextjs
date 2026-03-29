@@ -33,7 +33,7 @@ class CategoryControllerTest {
   @Autowired private UserGroupRepository groupRepository;
   @Autowired private PermissionRepository permissionRepository;
   @Autowired private CategoryRepository categoryRepository;
-  @Autowired private ProductRepository productRepository;
+  @Autowired private ItemRepository itemRepository;
   @Autowired private PasswordEncoder passwordEncoder;
 
   private MockHttpSession adminSession;
@@ -41,7 +41,7 @@ class CategoryControllerTest {
 
   @BeforeEach
   void setUp() throws Exception {
-    productRepository.deleteAll();
+    itemRepository.deleteAll();
     categoryRepository.deleteAll();
     userRepository.deleteAll();
     groupRepository.deleteAll();

@@ -1,9 +1,9 @@
 -- Seed permissions
 INSERT INTO permissions (id, codename, name, description) VALUES
-    (gen_random_uuid(), 'products.view',     'View Products',     'Can view products'),
-    (gen_random_uuid(), 'products.create',   'Create Products',   'Can create products'),
-    (gen_random_uuid(), 'products.edit',     'Edit Products',     'Can edit products'),
-    (gen_random_uuid(), 'products.delete',   'Delete Products',   'Can delete products'),
+    (gen_random_uuid(), 'items.view',     'View Items',     'Can view items'),
+    (gen_random_uuid(), 'items.create',   'Create Items',   'Can create items'),
+    (gen_random_uuid(), 'items.edit',     'Edit Items',     'Can edit items'),
+    (gen_random_uuid(), 'items.delete',   'Delete Items',   'Can delete items'),
     (gen_random_uuid(), 'categories.view',   'View Categories',   'Can view categories'),
     (gen_random_uuid(), 'categories.create', 'Create Categories', 'Can create categories'),
     (gen_random_uuid(), 'categories.edit',   'Edit Categories',   'Can edit categories'),
@@ -66,15 +66,15 @@ INSERT INTO categories (id, name, slug, description, sort_order) VALUES
     (gen_random_uuid(), 'Clothing',    'clothing',    'Apparel and fashion items',       2),
     (gen_random_uuid(), 'Books',       'books',       'Books and publications',          3);
 
--- Seed products
-INSERT INTO products (id, name, slug, description, price, sku, is_active, category_id)
+-- Seed items
+INSERT INTO items (id, name, slug, description, price, sku, is_active, category_id)
 SELECT gen_random_uuid(), 'Wireless Headphones', 'wireless-headphones', 'Premium noise-cancelling wireless headphones', 149.99, 'WH-001', TRUE, c.id
 FROM categories c WHERE c.slug = 'electronics';
 
-INSERT INTO products (id, name, slug, description, price, sku, is_active, category_id)
+INSERT INTO items (id, name, slug, description, price, sku, is_active, category_id)
 SELECT gen_random_uuid(), 'Mechanical Keyboard', 'mechanical-keyboard', 'Cherry MX Blue switches, RGB backlit', 89.99, 'MK-001', TRUE, c.id
 FROM categories c WHERE c.slug = 'electronics';
 
-INSERT INTO products (id, name, slug, description, price, sku, is_active, category_id)
+INSERT INTO items (id, name, slug, description, price, sku, is_active, category_id)
 SELECT gen_random_uuid(), 'Cotton T-Shirt', 'cotton-tshirt', '100% organic cotton, unisex fit', 24.99, 'CT-001', TRUE, c.id
 FROM categories c WHERE c.slug = 'clothing';

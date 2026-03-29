@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductRequest {
+public class ItemRequest {
 
   @NotBlank(message = "Name is required")
   private String name;

@@ -63,7 +63,7 @@ Browser
 backend/
   src/main/java/com/boilerworks/api/
     config/         -- Spring Security, JPA auditing, Redis session
-    controller/     -- REST controllers (auth, products, categories, forms, workflows)
+    controller/     -- REST controllers (auth, items, categories, forms, workflows)
     dto/            -- Request/response DTOs
     model/          -- JPA entities (AuditableEntity base class)
     repository/     -- Spring Data JPA repositories
@@ -76,7 +76,7 @@ backend/
 
 frontend/
   app/
-    (app)/          -- Authenticated pages (dashboard, products, categories, forms, workflows, settings)
+    (app)/          -- Authenticated pages (dashboard, items, categories, forms, workflows, settings)
     (login)/        -- Login page
   components/       -- UI components (sidebar, header, shadcn primitives)
   hooks/            -- Auth context, debounce

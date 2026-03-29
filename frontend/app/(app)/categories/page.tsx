@@ -87,7 +87,7 @@ export default function CategoriesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold">Categories</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Organize products into categories.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Organize items into categories.</p>
         </div>
         {hasPermission("categories.create") && (
           <Button onClick={() => { setShowForm(!showForm); setEditingCategory(null); setForm({ name: "", slug: "", description: "", sortOrder: "0" }); }}>

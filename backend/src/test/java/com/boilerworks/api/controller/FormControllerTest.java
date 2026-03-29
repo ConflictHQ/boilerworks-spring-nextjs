@@ -34,7 +34,7 @@ class FormControllerTest {
   @Autowired private PermissionRepository permissionRepository;
   @Autowired private FormDefinitionRepository formDefinitionRepository;
   @Autowired private FormSubmissionRepository formSubmissionRepository;
-  @Autowired private ProductRepository productRepository;
+  @Autowired private ItemRepository itemRepository;
   @Autowired private CategoryRepository categoryRepository;
   @Autowired private PasswordEncoder passwordEncoder;
 
@@ -45,7 +45,7 @@ class FormControllerTest {
   void setUp() throws Exception {
     formSubmissionRepository.deleteAll();
     formDefinitionRepository.deleteAll();
-    productRepository.deleteAll();
+    itemRepository.deleteAll();
     categoryRepository.deleteAll();
     userRepository.deleteAll();
     groupRepository.deleteAll();

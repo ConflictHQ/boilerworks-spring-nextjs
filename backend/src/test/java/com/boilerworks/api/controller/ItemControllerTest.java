@@ -25,14 +25,14 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class ProductControllerTest {
+class ItemControllerTest {
 
   @Autowired private MockMvc mockMvc;
   @Autowired private ObjectMapper objectMapper;
   @Autowired private AppUserRepository userRepository;
   @Autowired private UserGroupRepository groupRepository;
   @Autowired private PermissionRepository permissionRepository;
-  @Autowired private ProductRepository productRepository;
+  @Autowired private ItemRepository itemRepository;
   @Autowired private CategoryRepository categoryRepository;
   @Autowired private PasswordEncoder passwordEncoder;
 
@@ -41,27 +41,27 @@ class ProductControllerTest {
 
   @BeforeEach
   void setUp() throws Exception {
-    productRepository.deleteAll();
+    itemRepository.deleteAll();
     categoryRepository.deleteAll();
     userRepository.deleteAll();
     groupRepository.deleteAll();
     permissionRepository.deleteAll();
 
-    Permission viewProducts =
-        permissionRepository.save(new Permission("products.view", "View Products", ""));
-    Permission createProducts =
-        permissionRepository.save(new Permission("products.create", "Create Products", ""));
-    Permission editProducts =
-        permissionRepository.save(new Permission("products.edit", "Edit Products", ""));
-    Permission deleteProducts =
-        permissionRepository.save(new Permission("products.delete", "Delete Products", ""));
+    Permission viewItems =
+        permissionRepository.save(new Permission("items.view", "View Items", ""));
+    Permission createItems =
+        permissionRepository.save(new Permission("items.create", "Create Items", ""));
+    Permission editItems =
+        permissionRepository.save(new Permission("items.edit", "Edit Items", ""));
+    Permission deleteItems =
+        permissionRepository.save(new Permission("items.delete", "Delete Items", ""));
 
     UserGroup admins = new UserGroup("Administrators", "Full access");
-    admins.setPermissions(Set.of(viewProducts, createProducts, editProducts, deleteProducts));
+    admins.setPermissions(Set.of(viewItems, createItems, editItems, deleteItems));
     groupRepository.save(admins);
 
     UserGroup viewers = new UserGroup("Viewers", "Read-only");
-    viewers.setPermissions(Set.of(viewProducts));
+    viewers.setPermissions(Set.of(viewItems));
     groupRepository.save(viewers);
 
     AppUser admin = new AppUser();
@@ -111,58 +111,58 @@ class ProductControllerTest {
   }
 
   @Test
-  void adminCanCreateProduct() throws Exception {
+  void adminCanCreateItem() throws Exception {
     mockMvc
         .perform(
-            post("/api/products")
+            post("/api/items")
                 .session(adminSession)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     objectMapper.writeValueAsString(
                         Map.of(
-                            "name", "Test Product",
-                            "slug", "test-product",
+                            "name", "Test Item",
+                            "slug", "test-item",
                             "price", 29.99,
                             "sku", "TP-001",
                             "active", true))))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.ok").value(true))
-        .andExpect(jsonPath("$.data.name").value("Test Product"))
+        .andExpect(jsonPath("$.data.name").value("Test Item"))
         .andExpect(jsonPath("$.data.sku").value("TP-001"));
   }
 
   @Test
-  void viewerCannotCreateProduct() throws Exception {
+  void viewerCannotCreateItem() throws Exception {
     mockMvc
         .perform(
-            post("/api/products")
+            post("/api/items")
                 .session(viewerSession)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     objectMapper.writeValueAsString(
                         Map.of(
-                            "name", "Test Product",
-                            "slug", "test-product",
+                            "name", "Test Item",
+                            "slug", "test-item",
                             "price", 29.99,
                             "sku", "TP-001"))))
         .andExpect(status().isForbidden());
   }
 
   @Test
-  void viewerCanListProducts() throws Exception {
+  void viewerCanListItems() throws Exception {
     mockMvc
-        .perform(get("/api/products").session(viewerSession))
+        .perform(get("/api/items").session(viewerSession))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.ok").value(true))
         .andExpect(jsonPath("$.data").isArray());
   }
 
   @Test
-  void adminCanDeleteProduct() throws Exception {
+  void adminCanDeleteItem() throws Exception {
     var result =
         mockMvc
             .perform(
-                post("/api/products")
+                post("/api/items")
                     .session(adminSession)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(
@@ -182,23 +182,23 @@ class ProductControllerTest {
             .asText();
 
     mockMvc
-        .perform(delete("/api/products/" + id).session(adminSession))
+        .perform(delete("/api/items/" + id).session(adminSession))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.ok").value(true));
 
-    // Product should not appear in list (soft deleted)
+    // Item should not appear in list (soft deleted)
     mockMvc
-        .perform(get("/api/products").session(adminSession))
+        .perform(get("/api/items").session(adminSession))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.data.length()").value(0));
   }
 
   @Test
-  void adminCanGetProductById() throws Exception {
+  void adminCanGetItemById() throws Exception {
     var result =
         mockMvc
             .perform(
-                post("/api/products")
+                post("/api/items")
                     .session(adminSession)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(
@@ -222,18 +222,18 @@ class ProductControllerTest {
             .asText();
 
     mockMvc
-        .perform(get("/api/products/" + id).session(adminSession))
+        .perform(get("/api/items/" + id).session(adminSession))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.ok").value(true))
         .andExpect(jsonPath("$.data.name").value("Fetchable"));
   }
 
   @Test
-  void adminCanUpdateProduct() throws Exception {
+  void adminCanUpdateItem() throws Exception {
     var result =
         mockMvc
             .perform(
-                post("/api/products")
+                post("/api/items")
                     .session(adminSession)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(
@@ -258,7 +258,7 @@ class ProductControllerTest {
 
     mockMvc
         .perform(
-            put("/api/products/" + id)
+            put("/api/items/" + id)
                 .session(adminSession)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
@@ -279,11 +279,11 @@ class ProductControllerTest {
   }
 
   @Test
-  void viewerCannotDeleteProduct() throws Exception {
+  void viewerCannotDeleteItem() throws Exception {
     var result =
         mockMvc
             .perform(
-                post("/api/products")
+                post("/api/items")
                     .session(adminSession)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(
@@ -307,12 +307,12 @@ class ProductControllerTest {
             .asText();
 
     mockMvc
-        .perform(delete("/api/products/" + id).session(viewerSession))
+        .perform(delete("/api/items/" + id).session(viewerSession))
         .andExpect(status().isForbidden());
   }
 
   @Test
-  void unauthenticatedCannotAccessProducts() throws Exception {
-    mockMvc.perform(get("/api/products")).andExpect(status().isUnauthorized());
+  void unauthenticatedCannotAccessItems() throws Exception {
+    mockMvc.perform(get("/api/items")).andExpect(status().isUnauthorized());
   }
 }

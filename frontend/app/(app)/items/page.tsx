@@ -19,7 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-interface Product {
+interface Item {
   id: string;
   name: string;
   slug: string;
@@ -32,61 +32,61 @@ interface Product {
   createdAt: string;
 }
 
-export default function ProductsPage() {
+export default function ItemsPage() {
   const { hasPermission } = useAuth();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
   const [form, setForm] = useState({ name: "", slug: "", description: "", price: "", sku: "", active: true });
 
-  const loadProducts = useCallback(async () => {
-    const url = search ? `/api/products?search=${encodeURIComponent(search)}` : "/api/products";
-    const res = await apiGet<Product[]>(url);
-    if (res.ok && res.data) setProducts(res.data);
+  const loadItems = useCallback(async () => {
+    const url = search ? `/api/items?search=${encodeURIComponent(search)}` : "/api/items";
+    const res = await apiGet<Item[]>(url);
+    if (res.ok && res.data) setItems(res.data);
   }, [search]);
 
   useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+    loadItems();
+  }, [loadItems]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const payload = { ...form, price: parseFloat(form.price) };
 
-    const res = editingProduct
-      ? await apiPut<Product>(`/api/products/${editingProduct.id}`, payload)
-      : await apiPost<Product>("/api/products", payload);
+    const res = editingItem
+      ? await apiPut<Item>(`/api/items/${editingItem.id}`, payload)
+      : await apiPost<Item>("/api/items", payload);
 
     if (res.ok) {
-      toast.success(editingProduct ? "Product updated" : "Product created");
+      toast.success(editingItem ? "Item updated" : "Item created");
       setShowForm(false);
-      setEditingProduct(null);
+      setEditingItem(null);
       setForm({ name: "", slug: "", description: "", price: "", sku: "", active: true });
-      loadProducts();
+      loadItems();
     } else {
-      toast.error(res.errors?.[0]?.messages?.[0] || "Failed to save product");
+      toast.error(res.errors?.[0]?.messages?.[0] || "Failed to save item");
     }
   };
 
-  const handleEdit = (product: Product) => {
-    setEditingProduct(product);
+  const handleEdit = (item: Item) => {
+    setEditingItem(item);
     setForm({
-      name: product.name,
-      slug: product.slug,
-      description: product.description || "",
-      price: String(product.price),
-      sku: product.sku,
-      active: product.active,
+      name: item.name,
+      slug: item.slug,
+      description: item.description || "",
+      price: String(item.price),
+      sku: item.sku,
+      active: item.active,
     });
     setShowForm(true);
   };
 
   const handleDelete = async (id: string) => {
-    const res = await apiDelete(`/api/products/${id}`);
+    const res = await apiDelete(`/api/items/${id}`);
     if (res.ok) {
-      toast.success("Product deleted");
-      loadProducts();
+      toast.success("Item deleted");
+      loadItems();
     }
   };
 
@@ -94,13 +94,13 @@ export default function ProductsPage() {
     <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold">Products</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Manage your product catalogue.</p>
+          <h1 className="text-xl font-semibold">Items</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Manage your item catalogue.</p>
         </div>
-        {hasPermission("products.create") && (
-          <Button onClick={() => { setShowForm(!showForm); setEditingProduct(null); setForm({ name: "", slug: "", description: "", price: "", sku: "", active: true }); }}>
+        {hasPermission("items.create") && (
+          <Button onClick={() => { setShowForm(!showForm); setEditingItem(null); setForm({ name: "", slug: "", description: "", price: "", sku: "", active: true }); }}>
             <Plus className="mr-2 h-4 w-4" />
-            Add Product
+            Add Item
           </Button>
         )}
       </div>
@@ -109,7 +109,7 @@ export default function ProductsPage() {
       {showForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingProduct ? "Edit Product" : "New Product"}</CardTitle>
+            <CardTitle>{editingItem ? "Edit Item" : "New Item"}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
@@ -134,8 +134,8 @@ export default function ProductsPage() {
                 <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
               </div>
               <div className="flex gap-2 md:col-span-2">
-                <Button type="submit">{editingProduct ? "Update" : "Create"}</Button>
-                <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingProduct(null); }}>Cancel</Button>
+                <Button type="submit">{editingItem ? "Update" : "Create"}</Button>
+                <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingItem(null); }}>Cancel</Button>
               </div>
             </form>
           </CardContent>
@@ -144,7 +144,7 @@ export default function ProductsPage() {
 
       <div className="flex items-center gap-4">
         <Input
-          placeholder="Search products..."
+          placeholder="Search items..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
@@ -163,26 +163,26 @@ export default function ProductsPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell className="font-medium">{product.name}</TableCell>
-              <TableCell>{product.sku}</TableCell>
-              <TableCell>${product.price.toFixed(2)}</TableCell>
-              <TableCell>{product.categoryName || "--"}</TableCell>
+          {items.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell className="font-medium">{item.name}</TableCell>
+              <TableCell>{item.sku}</TableCell>
+              <TableCell>${item.price.toFixed(2)}</TableCell>
+              <TableCell>{item.categoryName || "--"}</TableCell>
               <TableCell>
-                <span className={product.active ? "text-green-500" : "text-muted-foreground"}>
-                  {product.active ? "Active" : "Inactive"}
+                <span className={item.active ? "text-green-500" : "text-muted-foreground"}>
+                  {item.active ? "Active" : "Inactive"}
                 </span>
               </TableCell>
               <TableCell>
                 <div className="flex gap-1">
-                  {hasPermission("products.edit") && (
-                    <Button variant="ghost" size="icon" onClick={() => handleEdit(product)}>
+                  {hasPermission("items.edit") && (
+                    <Button variant="ghost" size="icon" onClick={() => handleEdit(item)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
                   )}
-                  {hasPermission("products.delete") && (
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(product.id)}>
+                  {hasPermission("items.delete") && (
+                    <Button variant="ghost" size="icon" onClick={() => handleDelete(item.id)}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   )}
@@ -190,10 +190,10 @@ export default function ProductsPage() {
               </TableCell>
             </TableRow>
           ))}
-          {products.length === 0 && (
+          {items.length === 0 && (
             <TableRow>
               <TableCell colSpan={6} className="text-center text-muted-foreground">
-                No products found.
+                No items found.
               </TableCell>
             </TableRow>
           )}

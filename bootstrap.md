@@ -22,10 +22,10 @@ See the [stack primer](../primers/spring-nextjs/PRIMER.md) for stack-specific co
 # Start infrastructure
 cd docker && docker compose up -d postgres redis
 
-# Backend (port 8087)
+# Backend (port 8000)
 cd backend && ./gradlew bootRun
 
-# Frontend (port 3003)
+# Frontend (port 3000)
 cd frontend && npm install && npm run dev
 ```
 
@@ -46,15 +46,15 @@ cd docker && docker compose up -d --build
 
 ```
 Browser
-  +-- Next.js 16 (port 3003)
+  +-- Next.js 16 (port 3000)
         +-- REST API calls (session cookies)
               |
               v
-        Spring Boot 3 (port 8087)
+        Spring Boot 3 (port 8000)
               |-- Spring Security (session auth, Redis-backed)
               |-- Spring Data JPA (Hibernate)
-              |-- PostgreSQL 16 (port 5446)
-              +-- Redis 7 (port 6389)
+              |-- PostgreSQL 16 (port 5432)
+              +-- Redis 7 (port 6379)
 ```
 
 ## Project Structure

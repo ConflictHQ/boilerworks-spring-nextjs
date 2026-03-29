@@ -10,18 +10,18 @@ Read it before writing any code.
 - **Frontend**: Next.js 16 (App Router, React 19, Tailwind CSS 4)
 - **API**: REST with session-based auth (httpOnly cookies)
 - **ORM**: Spring Data JPA (Hibernate) + Flyway migrations
-- **Database**: PostgreSQL 16 (port 5446)
-- **Cache/Sessions**: Redis 7 (port 6389)
+- **Database**: PostgreSQL 16 (port 5432)
+- **Cache/Sessions**: Redis 7 (port 6379)
 - **Jobs**: Spring Scheduler
 
 ## Ports
 
 | Service   | Port |
 |-----------|------|
-| Spring API | 8087 |
-| Next.js UI | 3003 |
-| PostgreSQL | 5446 |
-| Redis     | 6389 |
+| Spring API | 8000 |
+| Next.js UI | 3000 |
+| PostgreSQL | 5432 |
+| Redis     | 6379 |
 | Mailpit   | 8025 |
 
 ## Key Patterns

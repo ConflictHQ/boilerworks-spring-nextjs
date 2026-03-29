@@ -4,7 +4,7 @@ services:
     build: ../backend
     container_name: boilerworks-api
     ports:
-      - "8087:8087"
+      - "8000:8087"
     environment:
       - SERVER_PORT=8087
       - DB_HOST=postgres
@@ -32,7 +32,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: boilerworks-ui
     ports:
-      - "3003:3003"
+      - "3000:3003"
     volumes:
       - ../frontend:/app
       - /app/node_modules
@@ -46,7 +46,7 @@ services:
     image: postgres:16
     container_name: boilerworks-postgres
     ports:
-      - "5446:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=boilerworks
       - POSTGRES_USER=boilerworks
@@ -63,7 +63,7 @@ services:
     image: redis:7-alpine
     container_name: boilerworks-redis
     ports:
-      - "6389:6379"
+      - "6379:6379"
     volumes:
       - redis-data:/data
     healthcheck:

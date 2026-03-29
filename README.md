@@ -26,8 +26,8 @@ Spring Boot 3 paired with Next.js 16 for enterprise teams that want Java's ecosy
 cd docker && docker compose up -d --build
 ```
 
-- Frontend: http://localhost:3003
-- Backend API: http://localhost:8087
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
 - Login: admin@boilerworks.dev / admin123
 
 ### Local Development

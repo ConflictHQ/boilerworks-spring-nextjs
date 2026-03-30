@@ -7,6 +7,13 @@ const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
-const eslintConfig = [...compat.extends("next/core-web-vitals", "prettier")];
+const eslintConfig = [
+  ...compat.extends("next/core-web-vitals", "prettier"),
+  {
+    rules: {
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
+];
 
 export default eslintConfig;

@@ -38,7 +38,14 @@ export default function ItemsPage() {
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<Item | null>(null);
-  const [form, setForm] = useState({ name: "", slug: "", description: "", price: "", sku: "", active: true });
+  const [form, setForm] = useState({
+    name: "",
+    slug: "",
+    description: "",
+    price: "",
+    sku: "",
+    active: true,
+  });
 
   const loadItems = useCallback(async () => {
     const url = search ? `/api/items?search=${encodeURIComponent(search)}` : "/api/items";
@@ -95,10 +102,16 @@ export default function ItemsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold">Items</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Manage your item catalogue.</p>
+          <p className="text-muted-foreground mt-1 text-sm">Manage your item catalogue.</p>
         </div>
         {hasPermission("items.create") && (
-          <Button onClick={() => { setShowForm(!showForm); setEditingItem(null); setForm({ name: "", slug: "", description: "", price: "", sku: "", active: true }); }}>
+          <Button
+            onClick={() => {
+              setShowForm(!showForm);
+              setEditingItem(null);
+              setForm({ name: "", slug: "", description: "", price: "", sku: "", active: true });
+            }}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Add Item
           </Button>
@@ -115,27 +128,57 @@ export default function ItemsPage() {
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Name</Label>
-                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+                <Input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Slug</Label>
-                <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} required />
+                <Input
+                  value={form.slug}
+                  onChange={(e) => setForm({ ...form, slug: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Price</Label>
-                <Input type="number" step="0.01" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} required />
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={form.price}
+                  onChange={(e) => setForm({ ...form, price: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>SKU</Label>
-                <Input value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} required />
+                <Input
+                  value={form.sku}
+                  onChange={(e) => setForm({ ...form, sku: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label>Description</Label>
-                <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                <Input
+                  value={form.description}
+                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                />
               </div>
               <div className="flex gap-2 md:col-span-2">
                 <Button type="submit">{editingItem ? "Update" : "Create"}</Button>
-                <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingItem(null); }}>Cancel</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingItem(null);
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </CardContent>
@@ -192,7 +235,7 @@ export default function ItemsPage() {
           ))}
           {items.length === 0 && (
             <TableRow>
-              <TableCell colSpan={6} className="text-center text-muted-foreground">
+              <TableCell colSpan={6} className="text-muted-foreground text-center">
                 No items found.
               </TableCell>
             </TableRow>

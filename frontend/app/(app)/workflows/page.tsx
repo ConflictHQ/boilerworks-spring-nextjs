@@ -95,7 +95,9 @@ export default function WorkflowsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold">Workflows</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Define and manage state machine workflows.</p>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Define and manage state machine workflows.
+          </p>
         </div>
         {hasPermission("workflows.create") && (
           <Button onClick={() => setShowForm(!showForm)}>
@@ -115,23 +117,40 @@ export default function WorkflowsPage() {
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Name</Label>
-                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+                <Input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Slug</Label>
-                <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} required />
+                <Input
+                  value={form.slug}
+                  onChange={(e) => setForm({ ...form, slug: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Initial State</Label>
-                <Input value={form.initialState} onChange={(e) => setForm({ ...form, initialState: e.target.value })} required />
+                <Input
+                  value={form.initialState}
+                  onChange={(e) => setForm({ ...form, initialState: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Description</Label>
-                <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                <Input
+                  value={form.description}
+                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                />
               </div>
               <div className="flex gap-2 md:col-span-2">
                 <Button type="submit">Create</Button>
-                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+                  Cancel
+                </Button>
               </div>
             </form>
           </CardContent>
@@ -164,7 +183,12 @@ export default function WorkflowsPage() {
               <TableCell>
                 <div className="flex gap-1">
                   {hasPermission("workflows.execute") && (
-                    <Button variant="ghost" size="icon" onClick={() => handleStartInstance(wf.id)} title="Start instance">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleStartInstance(wf.id)}
+                      title="Start instance"
+                    >
                       <Play className="h-4 w-4" />
                     </Button>
                   )}
@@ -179,7 +203,7 @@ export default function WorkflowsPage() {
           ))}
           {workflows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={6} className="text-center text-muted-foreground">
+              <TableCell colSpan={6} className="text-muted-foreground text-center">
                 No workflows defined yet.
               </TableCell>
             </TableRow>

@@ -37,14 +37,12 @@ export function AppSidebar() {
   return (
     <aside
       className={cn(
-        "flex h-screen flex-col border-r bg-sidebar text-sidebar-foreground transition-all duration-200",
+        "bg-sidebar text-sidebar-foreground flex h-screen flex-col border-r transition-all duration-200",
         collapsed ? "w-16" : "w-64"
       )}
     >
       <div className="flex h-14 items-center justify-between border-b px-4">
-        {!collapsed && (
-          <span className="text-lg font-bold tracking-tight">Boilerworks</span>
-        )}
+        {!collapsed && <span className="text-lg font-bold tracking-tight">Boilerworks</span>}
         <Button variant="ghost" size="icon" onClick={() => setCollapsed(!collapsed)}>
           {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
         </Button>
@@ -97,15 +95,13 @@ export function AppSidebar() {
       <Separator />
 
       <div className="flex items-center gap-3 px-4 py-3">
-        <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
-        >
+        <div className="bg-primary text-primary-foreground flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold">
           {user ? user.firstName[0] + user.lastName[0] : "??"}
         </div>
         {!collapsed && (
           <div className="flex flex-1 flex-col overflow-hidden">
             <span className="truncate text-sm font-medium">{user?.fullName}</span>
-            <span className="truncate text-xs text-muted-foreground">{user?.email}</span>
+            <span className="text-muted-foreground truncate text-xs">{user?.email}</span>
           </div>
         )}
         {!collapsed && (

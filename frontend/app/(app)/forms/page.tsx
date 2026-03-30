@@ -75,7 +75,7 @@ export default function FormsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold">Forms</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Manage dynamic form definitions.</p>
+          <p className="text-muted-foreground mt-1 text-sm">Manage dynamic form definitions.</p>
         </div>
         {hasPermission("forms.create") && (
           <Button onClick={() => setShowForm(!showForm)}>
@@ -95,19 +95,32 @@ export default function FormsPage() {
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Name</Label>
-                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+                <Input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Slug</Label>
-                <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} required />
+                <Input
+                  value={form.slug}
+                  onChange={(e) => setForm({ ...form, slug: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label>Description</Label>
-                <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                <Input
+                  value={form.description}
+                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                />
               </div>
               <div className="flex gap-2 md:col-span-2">
                 <Button type="submit">Create</Button>
-                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+                  Cancel
+                </Button>
               </div>
             </form>
           </CardContent>
@@ -146,7 +159,7 @@ export default function FormsPage() {
           ))}
           {forms.length === 0 && (
             <TableRow>
-              <TableCell colSpan={5} className="text-center text-muted-foreground">
+              <TableCell colSpan={5} className="text-muted-foreground text-center">
                 No forms defined yet.
               </TableCell>
             </TableRow>

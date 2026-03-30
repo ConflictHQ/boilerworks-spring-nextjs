@@ -43,7 +43,7 @@ export default function LoginPage() {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            <div className="bg-destructive/10 text-destructive rounded-md px-3 py-2 text-sm">
               {error}
             </div>
           )}
@@ -71,7 +71,7 @@ export default function LoginPage() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Signing in..." : "Sign in"}
           </Button>
-          <p className="text-center text-xs text-muted-foreground">
+          <p className="text-muted-foreground text-center text-xs">
             Demo: admin@boilerworks.dev / admin123
           </p>
         </form>

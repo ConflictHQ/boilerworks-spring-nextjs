@@ -87,10 +87,16 @@ export default function CategoriesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold">Categories</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Organize items into categories.</p>
+          <p className="text-muted-foreground mt-1 text-sm">Organize items into categories.</p>
         </div>
         {hasPermission("categories.create") && (
-          <Button onClick={() => { setShowForm(!showForm); setEditingCategory(null); setForm({ name: "", slug: "", description: "", sortOrder: "0" }); }}>
+          <Button
+            onClick={() => {
+              setShowForm(!showForm);
+              setEditingCategory(null);
+              setForm({ name: "", slug: "", description: "", sortOrder: "0" });
+            }}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Add Category
           </Button>
@@ -107,23 +113,47 @@ export default function CategoriesPage() {
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Name</Label>
-                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+                <Input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Slug</Label>
-                <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} required />
+                <Input
+                  value={form.slug}
+                  onChange={(e) => setForm({ ...form, slug: e.target.value })}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label>Sort Order</Label>
-                <Input type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: e.target.value })} />
+                <Input
+                  type="number"
+                  value={form.sortOrder}
+                  onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Description</Label>
-                <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                <Input
+                  value={form.description}
+                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                />
               </div>
               <div className="flex gap-2 md:col-span-2">
                 <Button type="submit">{editingCategory ? "Update" : "Create"}</Button>
-                <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingCategory(null); }}>Cancel</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingCategory(null);
+                  }}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </CardContent>
@@ -165,7 +195,7 @@ export default function CategoriesPage() {
           ))}
           {categories.length === 0 && (
             <TableRow>
-              <TableCell colSpan={5} className="text-center text-muted-foreground">
+              <TableCell colSpan={5} className="text-muted-foreground text-center">
                 No categories found.
               </TableCell>
             </TableRow>

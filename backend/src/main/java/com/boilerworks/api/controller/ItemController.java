@@ -26,8 +26,7 @@ public class ItemController {
   @PreAuthorize("hasAuthority('items.view')")
   public ResponseEntity<ApiResponse<List<ItemResponse>>> list(
       @RequestParam(required = false) String search) {
-    List<ItemResponse> items =
-        itemService.findAll(search).stream().map(ItemResponse::new).toList();
+    List<ItemResponse> items = itemService.findAll(search).stream().map(ItemResponse::new).toList();
     return ResponseEntity.ok(ApiResponse.ok(items));
   }
 
@@ -40,8 +39,7 @@ public class ItemController {
 
   @PostMapping
   @PreAuthorize("hasAuthority('items.create')")
-  public ResponseEntity<ApiResponse<ItemResponse>> create(
-      @Valid @RequestBody ItemRequest request) {
+  public ResponseEntity<ApiResponse<ItemResponse>> create(@Valid @RequestBody ItemRequest request) {
     try {
       Item item = itemService.create(request);
       return ResponseEntity.ok(ApiResponse.ok(new ItemResponse(item)));

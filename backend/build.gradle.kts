@@ -3,7 +3,7 @@ plugins {
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.diffplug.spotless") version "7.0.2"
-    id("org.owasp.dependencycheck") version "12.1.0"
+    id("org.owasp.dependencycheck") version "12.2.1"
 }
 
 group = "com.boilerworks"

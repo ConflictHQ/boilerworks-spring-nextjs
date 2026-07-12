@@ -3,9 +3,9 @@
 > Spring Boot 3 backend with a rich Next.js 16 frontend. Modern enterprise for
 > teams that want Spring's backend power with React's frontend ecosystem.
 
-See the [Boilerworks Catalogue](../primers/CATALOGUE.md) for philosophy and universal patterns.
+See the [Boilerworks Catalogue](https://github.com/ConflictHQ/boilerworks/blob/main/primers/CATALOGUE.md) for philosophy and universal patterns.
 
-See the [stack primer](../primers/spring-nextjs/PRIMER.md) for stack-specific conventions and build order.
+See the [stack primer](https://github.com/ConflictHQ/boilerworks/blob/main/primers/spring-nextjs/PRIMER.md) for stack-specific conventions and build order.
 
 ## Quick Start
 
@@ -22,10 +22,10 @@ See the [stack primer](../primers/spring-nextjs/PRIMER.md) for stack-specific co
 # Start infrastructure
 cd docker && docker compose up -d postgres redis
 
-# Backend (port 8000)
+# Backend (port 8087)
 cd backend && ./gradlew bootRun
 
-# Frontend (port 3000)
+# Frontend (port 3003)
 cd frontend && npm install && npm run dev
 ```
 
@@ -46,16 +46,19 @@ cd docker && docker compose up -d --build
 
 ```
 Browser
-  +-- Next.js 16 (port 3000)
+  +-- Next.js 16 (port 3003)
         +-- REST API calls (session cookies)
               |
               v
-        Spring Boot 3 (port 8000)
+        Spring Boot 3 (port 8087)
               |-- Spring Security (session auth, Redis-backed)
               |-- Spring Data JPA (Hibernate)
-              |-- PostgreSQL 16 (port 5432)
-              +-- Redis 7 (port 6379)
+              |-- PostgreSQL 16 (port 5446)
+              +-- Redis 7 (port 6389)
 ```
+
+Ports shown are the local-dev application defaults. The Docker full stack maps
+them to conventional host ports: UI 3000, API 8000, PostgreSQL 5432, Redis 6379.
 
 ## Project Structure
 

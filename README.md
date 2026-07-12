@@ -57,13 +57,17 @@ cd frontend && npm install && npm run dev
 
 ## Ports
 
-| Service | Port |
-|---------|------|
-| Spring Boot API | 8087 |
-| Next.js UI | 3003 |
-| PostgreSQL | 5446 |
-| Redis | 6389 |
-| Mailpit (email) | 8025 |
+Local dev uses the application defaults (`application.yaml`, `package.json`).
+The Docker full stack maps services to conventional host ports
+(`docker/docker-compose.yaml`).
+
+| Service | Local dev | Docker (host) |
+|---------|-----------|---------------|
+| Spring Boot API | 8087 | 8000 |
+| Next.js UI | 3003 | 3000 |
+| PostgreSQL | 5446 | 5432 |
+| Redis | 6389 | 6379 |
+| Mailpit (email) | — | 8025 |
 
 ## API Endpoints
 
@@ -111,7 +115,7 @@ cd frontend && npm test
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and the [stack primer](../primers/spring-nextjs/PRIMER.md) for architecture and conventions.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and the [stack primer](https://github.com/ConflictHQ/boilerworks/blob/main/primers/spring-nextjs/PRIMER.md) for architecture and conventions.
 
 ---
 

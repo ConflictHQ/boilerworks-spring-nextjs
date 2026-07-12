@@ -25,9 +25,12 @@ We will acknowledge your report within 48 hours and aim to release a fix within 
 
 When deploying Boilerworks:
 
-- Change all default credentials (database, MinIO, session secret)
-- Use HTTPS in production
-- Set `NODE_ENV=production`
-- Configure `CORS_ORIGINS` to your domain only
-- Use strong Auth0 credentials
-- Review the security hardening in `bootstrap.md`
+- Change all default credentials: the database user/password, the seeded
+  `admin@boilerworks.dev` / `demo@boilerworks.dev` accounts, and MinIO if you
+  use the `storage` Docker profile
+- Use HTTPS in production and serve the session cookie with the `Secure` flag
+- Set `NODE_ENV=production` for the Next.js frontend
+- Update the allowed CORS origins in
+  `backend/src/main/java/com/boilerworks/api/config/SecurityConfig.java`
+  (`corsConfigurationSource()`) to your domain only — they are hardcoded, not
+  read from an environment variable
